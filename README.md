@@ -1,262 +1,74 @@
-<!---
+[![Build status](https://travis-ci.org/dorel/radon-collect.svg?branch=master)](https://travis-ci.org/dorel/radon-collect)
 
-Normally this README is automatically generated but not for now...
+_[Demo and API docs](https://github.com/dorel/radon-collect)_
 
--->
+## &lt;radon-collect&gt;
 
-[![Build status](https://travis-ci.org/dorel/radon-product.svg?branch=master)](https://travis-ci.org/dorel/radon-product)
+The `radon` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
 
-_[Demo and API docs](https://github.com/dorel/radon-product)_
+The `radon-collect` element is an [extension for Polymer](https://elements.polymer-project.org) and handles the collection of Magento 2 data through its REST API. All available elements are based on the testing results presented in [this](https://github.com/dorel/Magento-2-REST-API-BDD) Magento 2 BDD RESTful API repo.
 
+## Initialise
+...
 
-##&lt;radon-product&gt;
+## &lt;radon-collect-product&gt; vs. &lt;radon-collect-products&gt;
 
-`radon-product` is an element to integrate Magento e-commerce through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html).
+- The `radon-collect-product` element collects all product information based on a SKU and it returns a product object.
+- The `radon-collect-products` element collects all product information based on a filter and it returns an array with product object.
 
-The radon-product element is an [extension for Polymer](https://elements.polymer-project.org) all available elements are based on the testing results presented in [this](https://github.com/dorel/Magento-2-REST-API-BDD) Magento 2 BDD RESTful API repo.
-
-The radon-product should contain a SKU.
+### &lt;radon-collect-product&gt;
 
 ```html
-<radon-product sku=""></radon-product>
+<radon-collect-product sku=""></radon-collect-product>
 ```
 
-The complete product becomes available with double curly bracket.
+The complete product becomes available with double curly braces. The 
 
 ```html
-<radon-product sku="24-MB01">
-	<radon-product-title>{{ name }}</radon-product-title>
-</radon-product>
+<radon-collect-product sku="24-MB01">
+	<h1>{{ name }}</h1>
+</radon-collect-product>
 ```
 
 You can also combine data bindings and conditionals.
 
 ```html
-<radon-product sku="24-MB01">
-	<radon-product-title>{{ name }}</radon-product-title>
+<radon-collect-product sku="24-MB01">
+	<h1>{{ name }}</h1>
 	<template is="dom-repeat" items="{{ media_gallery_entries.item }}">
 		<iron-image is="dom-if" src="{{ file }}"></iron-image>
 	</template>
-</radon-product>
+</radon-collect-product>
 ```
+
+### &lt;radon-collect-products&gt;
+
+You can also collect products using filters, for example all products that start with a certain name. This might also be use to collect multiple products.
+
+You can define multiple filters by using a semicolon as seperator.
+
+```html
+<radon-collect-products filter="key1=val1;key2=val2"></radon-collect-products>
+```
+
+The complete product becomes available with double curly braces. The filtering work as follows:
+- Add `filter=""` tag and add 
+
+```html
+<radon-collect-products filter="name['Leggings']&condition_type=['like'];name['Parachute']&condition_type=['like'];">
+  <template is="dom-repeat" items="{{ collection }}">
+    <iron-image is="dom-if" src="{{ name }}"></iron-image>
+  </template>
+</radon-collect-products>
+```
+
+The filters and criteria are based on the [Magento 2 WebAPI Search Criteria](http://devdocs.magento.com/guides/v2.1/howdoi/webapi/search-criteria.html).
 
 ## Response object
 
-The available information is based on the following repsonse object.
+Response objects are defined here: http://devdocs.magento.com/swagger/index_20.html
 
-```json
-{
-  "id": 0,
-  "sku": "string",
-  "name": "string",
-  "attributeSetId": 0,
-  "price": 0,
-  "status": 0,
-  "visibility": 0,
-  "typeId": "string",
-  "createdAt": "string",
-  "updatedAt": "string",
-  "weight": 0,
-  "extensionAttributes": {
-    "bundleProductOptions": [
-      {
-        "optionId": 0,
-        "title": "string",
-        "required": true,
-        "type": "string",
-        "position": 0,
-        "sku": "string",
-        "productLinks": [
-          {
-            "id": "string",
-            "sku": "string",
-            "optionId": 0,
-            "qty": 0,
-            "position": 0,
-            "isDefault": true,
-            "price": 0,
-            "priceType": 0,
-            "canChangeQuantity": 0,
-            "extensionAttributes": {}
-          }
-        ],
-        "extensionAttributes": {}
-      }
-    ],
-    "downloadableProductLinks": [
-      {
-        "id": 0,
-        "title": "string",
-        "sortOrder": 0,
-        "isShareable": 0,
-        "price": 0,
-        "numberOfDownloads": 0,
-        "linkType": "string",
-        "linkFile": "string",
-        "linkFileContent": {
-          "fileData": "string",
-          "name": "string",
-          "extensionAttributes": {}
-        },
-        "linkUrl": "string",
-        "sampleType": "string",
-        "sampleFile": "string",
-        "sampleFileContent": {
-          "fileData": "string",
-          "name": "string",
-          "extensionAttributes": {}
-        },
-        "sampleUrl": "string",
-        "extensionAttributes": {}
-      }
-    ],
-    "downloadableProductSamples": [
-      {
-        "id": 0,
-        "title": "string",
-        "sortOrder": 0,
-        "sampleType": "string",
-        "sampleFile": "string",
-        "sampleFileContent": {
-          "fileData": "string",
-          "name": "string",
-          "extensionAttributes": {}
-        },
-        "sampleUrl": "string",
-        "extensionAttributes": {}
-      }
-    ],
-    "stockItem": {
-      "itemId": 0,
-      "productId": 0,
-      "stockId": 0,
-      "qty": 0,
-      "isInStock": true,
-      "isQtyDecimal": true,
-      "showDefaultNotificationMessage": true,
-      "useConfigMinQty": true,
-      "minQty": 0,
-      "useConfigMinSaleQty": 0,
-      "minSaleQty": 0,
-      "useConfigMaxSaleQty": true,
-      "maxSaleQty": 0,
-      "useConfigBackorders": true,
-      "backorders": 0,
-      "useConfigNotifyStockQty": true,
-      "notifyStockQty": 0,
-      "useConfigQtyIncrements": true,
-      "qtyIncrements": 0,
-      "useConfigEnableQtyInc": true,
-      "enableQtyIncrements": true,
-      "useConfigManageStock": true,
-      "manageStock": true,
-      "lowStockDate": "string",
-      "isDecimalDivided": true,
-      "stockStatusChangedAuto": 0,
-      "extensionAttributes": {}
-    },
-    "configurableProductOptions": [
-      {
-        "id": 0,
-        "attributeId": "string",
-        "label": "string",
-        "position": 0,
-        "isUseDefault": true,
-        "values": [
-          {
-            "valueIndex": 0,
-            "extensionAttributes": {}
-          }
-        ],
-        "extensionAttributes": {},
-        "productId": 0
-      }
-    ],
-    "configurableProductLinks": [
-      0
-    ]
-  },
-  "productLinks": [
-    {
-      "sku": "string",
-      "linkType": "string",
-      "linkedProductSku": "string",
-      "linkedProductType": "string",
-      "position": 0,
-      "extensionAttributes": {
-        "qty": 0
-      }
-    }
-  ],
-  "options": [
-    {
-      "productSku": "string",
-      "optionId": 0,
-      "title": "string",
-      "type": "string",
-      "sortOrder": 0,
-      "isRequire": true,
-      "price": 0,
-      "priceType": "string",
-      "sku": "string",
-      "fileExtension": "string",
-      "maxCharacters": 0,
-      "imageSizeX": 0,
-      "imageSizeY": 0,
-      "values": [
-        {
-          "title": "string",
-          "sortOrder": 0,
-          "price": 0,
-          "priceType": "string",
-          "sku": "string",
-          "optionTypeId": 0
-        }
-      ],
-      "extensionAttributes": {}
-    }
-  ],
-  "mediaGalleryEntries": [
-    {
-      "id": 0,
-      "mediaType": "string",
-      "label": "string",
-      "position": 0,
-      "disabled": true,
-      "types": [
-        "string"
-      ],
-      "file": "string",
-      "content": {
-        "base64EncodedData": "string",
-        "type": "string",
-        "name": "string"
-      },
-      "extensionAttributes": {
-        "videoContent": {
-          "mediaType": "string",
-          "videoProvider": "string",
-          "videoUrl": "string",
-          "videoTitle": "string",
-          "videoDescription": "string",
-          "videoMetadata": "string"
-        }
-      }
-    }
-  ],
-  "tierPrices": [
-    {
-      "customerGroupId": 0,
-      "qty": 0,
-      "value": 0,
-      "extensionAttributes": {}
-    }
-  ],
-  "customAttributes": [
-    {
-      "attributeCode": "string",
-      "value": "string"
-    }
-  ]
-}
-```
+| Element | Resource |
+| -------------------------|-----------------------------------------------------|
+| `radon-collect-products` | catalogProductRepositoryV1 - GET /V1/products       |
+| `radon-collect-product`  | catalogProductRepositoryV1 - GET /V1/products/{sku} |
