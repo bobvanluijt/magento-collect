@@ -1,0 +1,26 @@
+{
+  "name": "radon-collect",
+  "description": "A Magento WebAPI integration for Polymer",
+  "main": "radon-collect.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "magento",
+    "webapi"
+  ],
+  "authors": [
+    "Bob van Luijt (@bobvanluijt)"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.dorel.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.6.1"
+  }
+}
