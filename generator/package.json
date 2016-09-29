@@ -1,0 +1,27 @@
+{
+  "name": "radon-collect-generator",
+  "version": "0.0.0",
+  "description": "Generates the Polymer Radon Collect package",
+  "main": "generate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorel/radon-collect.git"
+  },
+  "keywords": [
+    "Polymer",
+    "Radon-Collect"
+  ],
+  "author": "Bob van Luijt (@bobvanluijt)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dorel/radon-collect/issues"
+  },
+  "homepage": "https://github.com/dorel/radon-collect#readme",
+  "dependencies": {
+    "js-beautify": "^1.6.4",
+    "underscore": "^1.8.3"
+  }
+}

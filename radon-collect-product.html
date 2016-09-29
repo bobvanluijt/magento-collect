@@ -1,19 +1,32 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
-
 <dom-module id="radon-collect-product">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-  </template>
+    <template>
+			  <style>
+			      :host {
+			        display: block;
+			      }
+			    </style>
 
-  <script>
-    (function() {
-      Polymer()
-    })();
-  </script>
+			  <iron-ajax auto
+		          url="https://magentourl.com/V1/products/{{this.sku}}"
+		          params='{}'
+		          handle-as="json"
+		          last-response="{{ajaxResponse}}"></iron-ajax>
 
+			  </template>
+    <script>
+        (function() {
+            Polymer({
+                is: 'radon-collect-product',
+                properties: {
+                    filter: {
+                        type: String
+                    },
+                    sku: {
+                        type: String
+                    }
+                }
+            })
+        })();
+    </script>
 </dom-module>

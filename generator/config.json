@@ -1,0 +1,11 @@
+[{
+    "element": "radon-collect-product",
+    "swaggerTag": "catalogProductRepositoryV1",
+    "method": "get",
+    "endpoint": "/V1/products/{sku}"
+}, {
+    "element": "radon-collect-products",
+    "swaggerTag": "catalogProductRepositoryV1",
+    "method": "get",
+    "endpoint": "/V1/products"
+}]
