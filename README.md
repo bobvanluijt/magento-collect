@@ -36,7 +36,7 @@ Example:
 <magento-collect-product sku=""></magento-collect-product>
 ```
 
-The complete product becomes available with double curly braces. The 
+The complete product becomes available with by binding it within the tags. 
 
 ```html
 <magento-collect-product sku="24-MB01">
@@ -44,7 +44,7 @@ The complete product becomes available with double curly braces. The
 </magento-collect-product>
 ```
 
-You can also combine data bindings and conditionals.
+You can also combine data bindings with conditionals.
 
 ```html
 <magento-collect-product sku="24-MB01">
