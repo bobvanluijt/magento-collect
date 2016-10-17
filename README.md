@@ -1,5 +1,4 @@
-# magento-collect 
-[![Build status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=master)](https://travis-ci.org/bobvanluijt/magento-collect)
+# magento-collect [![Build status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=master)](https://travis-ci.org/bobvanluijt/magento-collect)
 
 [#UseThePlatform](https://twitter.com/hashtag/usetheplatform)! The `magento` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
 
