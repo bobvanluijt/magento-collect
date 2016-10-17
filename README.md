@@ -1,22 +1,22 @@
-[![Build status](https://travis-ci.org/dorel/radon-collect.svg?branch=master)](https://travis-ci.org/dorel/radon-collect)
-
-_[Demo and API docs](https://github.com/dorel/radon-collect)_
-
-## &lt;radon-collect&gt;
+# Radon-Collect 
+[![Build status](https://travis-ci.org/bobvanluijt/radon-collect.svg?branch=master)](https://travis-ci.org/bobvanluijt/radon-collect)
 
 The `radon` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
 
 The `radon-collect` element is an [extension for Polymer](https://elements.polymer-project.org) and handles the collection of Magento 2 data through its REST API. All available elements are based on the testing results presented in [this](https://github.com/dorel/Magento-2-REST-API-BDD) Magento 2 BDD RESTful API repo.
 
-## Initialise
-...
+## Installation
 
-## &lt;radon-collect-product&gt; vs. &lt;radon-collect-products&gt;
+TODO: Describe the installation process
+
+## Usage
+
+### &lt;radon-collect-product&gt; vs. &lt;radon-collect-products&gt;
 
 - The `radon-collect-product` element collects all product information based on a SKU and it returns a product object.
 - The `radon-collect-products` element collects all product information based on a filter and it returns an array with product object.
 
-### &lt;radon-collect-product&gt;
+#### &lt;radon-collect-product&gt;
 
 ```html
 <radon-collect-product sku=""></radon-collect-product>
@@ -41,7 +41,7 @@ You can also combine data bindings and conditionals.
 </radon-collect-product>
 ```
 
-### &lt;radon-collect-products&gt;
+#### &lt;radon-collect-products&gt;
 
 You can also collect products using filters, for example all products that start with a certain name. This might also be use to collect multiple products.
 
@@ -64,7 +64,7 @@ The complete product becomes available with double curly braces. The filtering w
 
 The filters and criteria are based on the [Magento 2 WebAPI Search Criteria](http://devdocs.magento.com/guides/v2.1/howdoi/webapi/search-criteria.html).
 
-## Response object
+### Response object
 
 Response objects are defined here: http://devdocs.magento.com/swagger/index_20.html
 
@@ -72,3 +72,23 @@ Response objects are defined here: http://devdocs.magento.com/swagger/index_20.h
 | -------------------------|-----------------------------------------------------|
 | `radon-collect-products` | catalogProductRepositoryV1 - GET /V1/products       |
 | `radon-collect-product`  | catalogProductRepositoryV1 - GET /V1/products/{sku} |
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## History
+
+TODO: Write history
+
+## Credits
+
+Bob van Luijt (@bobvanluijt)
+
+## License
+
+See license.md file.
