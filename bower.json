@@ -1,18 +1,18 @@
 {
-  "name": "radon-collect",
+  "name": "magento-collect",
   "description": "A Magento WebAPI integration for Polymer",
-  "main": "radon-collect.html",
+  "main": "magento-collect.html",
   "keywords": [
     "web-components",
     "polymer",
-    "magento",
+    "magento 2",
     "webapi"
   ],
   "authors": [
     "Bob van Luijt (@bobvanluijt)"
   ],
-  "license": "MIT",
-  "homepage": "http://www.dorel.io",
+  "license": "BSD-3",
+  "homepage": "https://github.com/bobvanluijt/magento-collect",
   "ignore": [
     "**/.*",
     "node_modules",
