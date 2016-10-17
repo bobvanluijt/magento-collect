@@ -1,0 +1,83 @@
+###
+ #  _____                 _   _       
+ # |  __ \               | | (_)      
+ # | |  | | ___  _ __ ___| |  _  ___  
+ # | |  | |/ _ \| '__/ _ \ | | |/ _ \ 
+ # | |__| | (_) | | |  __/ |_| | (_) |
+ # |_____/ \___/|_|  \___|_(_)_|\___/                                 
+ #
+ # Description: Installs a complete Magento 2 installation in travis and validates the APIs
+ # Author: Bob van Luijt
+ #
+###
+
+dist: trusty
+
+sudo: required
+
+language: php
+
+php:
+   - 7.0
+  
+addons:
+  apt:
+    packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
+  
+before_install:
+  # Install nodejs
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install nodejs npm -y
+  # Install Apache and Php Fpm
+  - sudo apt-get install -y -qq apache2 libapache2-mod-fastcgi wget
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf 2>/dev/null || true  
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  - sudo cp -f travis/travis-ci-apache /etc/apache2/sites-available/000-default.conf
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
+  # Install Magento
+  - composer selfupdate
+  - sudo mkdir -p /var/www && sudo chmod 777 /var/www && cd /var/www
+  - wget https://github.com/magento/magento2/archive/2.1.1.tar.gz
+  - tar -xzf 2.1.1.tar.gz
+  - mv magento2-2.1.1/ magento2/
+  # Deploy sample data
+  - cd /var/www
+  - git clone https://github.com/magento/magento2-sample-data.git
+  - cd magento2-sample-data/dev/tools
+  - php -f build-sample-data.php -- --ce-source="/var/www/magento2"
+  # Continue installation
+  - cd /var/www/magento2
+  - sudo find . -type f -exec chmod 644 {} \;
+  - sudo find . -type d -exec chmod 755 {} \;
+  - sudo find ./var -type d -exec chmod 777 {} \;
+  - sudo find ./pub/media -type d -exec chmod 777 {} \;
+  - sudo find ./pub/static -type d -exec chmod 777 {} \;
+  - sudo chmod 777 ./app/etc
+  - sudo chmod 644 ./app/etc/*.xml
+  - composer install -q
+  - chmod +x /var/www/magento2/bin/magento
+  # Setup Magento
+  - mysql -uroot -e 'SET @@global.sql_mode = NO_ENGINE_SUBSTITUTION; CREATE DATABASE magentodb;'
+  - /var/www/magento2/bin/magento setup:install --quiet --backend-frontname="adminlogin" --db-host="127.0.0.1" --db-name="magentodb" --db-user="root" --db-password="" --language="en_US" --currency="USD" --timezone="America/New_York" --use-rewrites=1 --use-secure=0 --base-url="http://localhost" --base-url-secure="https://localhost" --admin-user=adminuser --admin-password=admin123@ --admin-email=admin@newmagento.com --admin-firstname=admin --admin-lastname=user --cleanup-database
+  # Enable web api
+  - mysql -uroot -e 'USE magentodb; REPLACE INTO core_config_data (path, value) VALUES("webapi/webapisecurity/allow_insecure", 1);'
+  - /var/www/magento2/bin/magento cache:disable
+  # restart apache
+  - sudo service apache2 restart
+ 
+before_script:
+  # Install npm deps globally
+  - npm install -i -g gulp mocha supertest should chai assert
+  # Country roads, take me home to the place I belong.
+  - cd /home/travis/build/bobvanluijt/magento-collect
+  - npm install
+
+script:
+  # Start Testing!
+  - mocha
