@@ -75,7 +75,7 @@ before_script:
   # Install npm deps globally
   - npm install -i -g gulp mocha supertest should chai assert
   # Country roads, take me home to the place I belong.
-  - cd /home/travis/build/dorel/Magento-2-REST-API-BDD
+  - cd /home/travis/build/dorel/magento-collect
   - npm install
 
 script:
