@@ -2,7 +2,7 @@
 
 Master branch | Develop branch
 --- | --- | ---
-[![Build Status](https://travis-ci.org/dorel/bobvanluijt/magento-collect.svg?branch=master)](https://travis-ci.org/dorel/Magento-2-REST-API-BDD) | [![Build Status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=develop)](https://travis-ci.org/dorel/Magento-2-REST-API-BDD)
+[![Build Status](https://travis-ci.org/dorel/bobvanluijt/magento-collect.svg?branch=master)](https://travis-ci.org/bobvanluijt/Magento-2-REST-API-BDD) | [![Build Status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=develop)](https://travis-ci.org/bobvanluijt/Magento-2-REST-API-BDD)
 
 _Note: this element is still in progress, watch it to follow the progress_
 
