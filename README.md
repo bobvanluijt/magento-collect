@@ -12,20 +12,23 @@ The `magento-collect` element is an [extension for Polymer](https://elements.pol
 
 ## Installation
 
-TODO: Describe the installation process
+`$ bower install --save bobvanluijt/magento-collect`
 
-## Usage
+_Note: this element is still in progress, watch it to follow the progress_
+
+## Usage and overview of available sub-elements
+
+Overview:
+- [magento-collect-product](#magento-collect-product)
+- [magento-collect-products](#magento-collect-products)
+- [magento-collect-product vs. magento-collect-products](#magento-collect-product-vs-magento-collect-products)
+- [magento-collect-cart](#magento-collect-cart)
 
 magento-collect uses the [PRPL pattern](https://www.polymer-project.org/1.0/toolbox/server#prpl-pattern). Additionally, it sets API filters based on bindings inside a `magento-collect-*` element.
 
 Example:
 
 - When (inside a `magento-collect-*` element) the following items are set: `{{ MAGE.product.name }}` and `{{ MAGE.product.weight }}` it will set the API filter to only load those resources. Those resources are saved for the API request.
-
-### &lt;magento-collect-product&gt; vs. &lt;magento-collect-products&gt;
-
-- The `magento-collect-product` element collects all API content based on a SKU and it returns a product object.
-- The `magento-collect-products` element collects all API content based on a filter and it returns an array with product object.
 
 #### &lt;magento-collect-product&gt;
 
@@ -74,6 +77,11 @@ The complete product becomes available with double curly braces. The filtering w
 ```
 
 The filters and criteria are based on the [Magento 2 WebAPI Search Criteria](http://devdocs.magento.com/guides/v2.1/howdoi/webapi/search-criteria.html).
+
+#### &lt;magento-collect-product&gt; vs. &lt;magento-collect-products&gt;
+
+- The `magento-collect-product` element collects all API content based on a SKU and it returns a product object.
+- The `magento-collect-products` element collects all API content based on a filter and it returns an array with product object.
 
 #### &lt;magento-collect-cart&gt;
 
