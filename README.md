@@ -14,6 +14,25 @@ The `magento-collect` element is an [extension for Polymer](https://elements.pol
 
 `$ bower install --save bobvanluijt/magento-collect`
 
+Setup within Magento:
+- Enable the API: In case you setup Magento via the UI: webapi -> security -> allow insecure = true
+- Enable the API: in MySql: `REPLACE INTO core_config_data (path, value) VALUES("webapi/webapisecurity/allow_insecure", 1);`
+
+You need to define these global settings:
+
+```
+<script>
+Polymer({
+	ready: function() {
+		this.MageConfig = {
+			RESTurl = 'https://someurl.com/rest/V1', // current domain by default
+			SmartStore = true // true by default
+		};
+	}
+});
+</script>
+```
+
 _Note: this element is still in progress, watch it to follow the progress_
 
 ## Usage and overview of available sub-elements
@@ -126,6 +145,8 @@ When an element has the following bindings: `{{ MAGE.product.name}}` and `{{ MAG
 If a new call is done to the Magento 2 API it will first check the collected information in the `MAGE` object. If it is not available in the object it will collect it from the Magento API setting the filter for this specific values.
 
 In the above example, requesting: `{{ MAGE.product.name }}` and `{{ MAGE.product.type_id }}` will result in the request: `[RESTURL]/products/24-MB01?fields=type_id`
+
+This feature can be disabled (see (Installation)[#Installation] )
 
 ## Contributing
 
