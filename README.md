@@ -6,9 +6,7 @@ Master branch | Develop branch
 
 _Note: this element is still in progress, watch it to follow the progress. This is like [Agile and stuff](https://media.makeameme.org/created/agile-quotmindsetquot.jpg)_
 
-[#UseThePlatform](https://twitter.com/hashtag/usetheplatform)! The `magento` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
-
-The `magento-collect` element is an [extension for Polymer](https://elements.polymer-project.org) and handles the collection of Magento 2 data through its REST API.
+[#UseThePlatform](https://twitter.com/hashtag/usetheplatform)! The `magento-collect` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
 
 ## Installation
 
