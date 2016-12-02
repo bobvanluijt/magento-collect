@@ -4,11 +4,11 @@ Master branch | Develop branch
 --- | --- | ---
 [![Build Status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=master)](https://travis-ci.org/bobvanluijt/magento-collect) | [![Build Status](https://travis-ci.org/bobvanluijt/magento-collect.svg?branch=develop)](https://travis-ci.org/bobvanluijt/magento-collect)
 
-_Note: this element is still in progress, watch it to follow the progress_
+_Note: this element is still in progress, watch it to follow the progress. This is like [Agile and stuff](https://media.makeameme.org/created/agile-quotmindsetquot.jpg)_
 
 [#UseThePlatform](https://twitter.com/hashtag/usetheplatform)! The `magento` element is used to integrate Magento 2 through its [RESTful APIs](http://devdocs.magento.com/guides/v2.0/get-started/bk-get-started-api.html) directly into a Polymer app or website.
 
-The `magento-collect` element is an [extension for Polymer](https://elements.polymer-project.org) and handles the collection of Magento 2 data through its REST API. All available elements are based on the testing results presented in [this](https://github.com/dorel/Magento-2-REST-API-BDD) Magento 2 BDD RESTful API repo.
+The `magento-collect` element is an [extension for Polymer](https://elements.polymer-project.org) and handles the collection of Magento 2 data through its REST API.
 
 ## Installation
 
@@ -17,6 +17,7 @@ The `magento-collect` element is an [extension for Polymer](https://elements.pol
 Setup within Magento:
 - Enable the API: In case you setup Magento via the UI: webapi -> security -> allow insecure = true
 - Enable the API: in MySql: `REPLACE INTO core_config_data (path, value) VALUES("webapi/webapisecurity/allow_insecure", 1);`
+- Enable CORS on your webserver. [Nginx CORS](http://enable-cors.org/server_nginx.html), [Apache 2 CORS](http://enable-cors.org/server_apache.html)
 
 You need to define these global settings:
 
@@ -24,50 +25,72 @@ You need to define these global settings:
 <script>
 Polymer({
 	ready: function() {
-		this.MageConfig = {
+		window.MageConfig = {
 			RESTurl = 'https://someurl.com/rest/V1', // current domain by default
-			SmartStore = true // true by default
+			immutableStore = true // true by default
 		};
 	}
 });
 </script>
 ```
 
-_Note: this element is still in progress, watch it to follow the progress_
+## Architectural principle
+
+[Magento 2](https://github.com/magento/magento2) has a [RESTful API](http://devdocs.magento.com/guides/v2.0/rest/bk-rest.html).
+
+The API follows the plural nouns RESTful approach. Example: `/products/{id}` for a single product and `/products` for a list of products.
+
+The `magento-collect` element follows this pattern by using plural and singular nouns.
+
+`<magento-collect-products>` -> `/products`
+`<magento-collect-product collector="{id}">` -> `/products/{id}`
+`<magento-collect-categories>` -> `/categories`
+`<magento-collect-category collector="{id}">` -> `/categories/{id}`
+...and so on...
+
+The `collector` attribute defines which `{id}` should be collected.
+
+The object returned is available through the `<magento-item key="{objectKey}">` element.
+
+A complete example:
+
+```
+<magento-collect-product collector="24-UB02">
+	<h1><magento-item key="name"></magento-item></h1>
+	<h3><magento-item key="created_at"></magento-item></h3>
+</magento-collect-product>
+```
+
+## Immutable Store
+
+Immutable storage is inspired by [Netflix's Falcor](https://github.com/Netflix/falcor). If you collect data, you can store it locally during a session. When a user goes back to a previously visited page, it will first travel the local object to find the information needed rather than going to the API directly.
 
 ## Usage and overview of available sub-elements
 
 Overview:
 - [magento-collect-product](#magento-collect-product)
 - [magento-collect-products](#magento-collect-products)
-- [magento-collect-product vs. magento-collect-products](#magento-collect-product-vs-magento-collect-products)
-- [magento-collect-cart](#magento-collect-cart)
-
-magento-collect uses the [PRPL pattern](https://www.polymer-project.org/1.0/toolbox/server#prpl-pattern). Additionally, it sets API filters based on bindings inside a `magento-collect-*` element.
-
-Example:
-
-- When (inside a `magento-collect-*` element) the following items are set: `{{ MAGE.product.name }}` and `{{ MAGE.product.weight }}` it will set the API filter to only load those resources. Those resources are saved for the API request.
+- [magento-collect-item](#magento-collect-item)
+- _...soon more to follow..._
 
 #### &lt;magento-collect-product&gt;
 
 ```html
-<magento-collect-product sku=""></magento-collect-product>
+<magento-collect-product collector=""></magento-collect-product>
 ```
 
 The complete product becomes available with by binding it within the tags. 
 
 ```html
-<magento-collect-product sku="24-MB01">
-	<h1>{{ MAGE.product.name }}</h1>
+<magento-collect-product collector="24-MB01">
+  <!-- More information -->
 </magento-collect-product>
 ```
 
 You can also combine data bindings with conditionals.
 
 ```html
-<magento-collect-product sku="24-MB01">
-	<h1>{{ MAGE.productname }}</h1>
+<magento-collect-product collector="24-MB01">
 	<template is="dom-repeat" items="{{ MAGE.product.media_gallery_entries.item }}">
 		<iron-image is="dom-if" src="{{ file }}"></iron-image>
 	</template>
@@ -97,21 +120,6 @@ The complete product becomes available with double curly braces. The filtering w
 
 The filters and criteria are based on the [Magento 2 WebAPI Search Criteria](http://devdocs.magento.com/guides/v2.1/howdoi/webapi/search-criteria.html).
 
-#### &lt;magento-collect-product&gt; vs. &lt;magento-collect-products&gt;
-
-- The `magento-collect-product` element collects all API content based on a SKU and it returns a product object.
-- The `magento-collect-products` element collects all API content based on a filter and it returns an array with product object.
-
-#### &lt;magento-collect-cart&gt;
-
-You can also collect items from the cart with the cart collect item.
-
-You can define multiple filters by using a semicolon as seperator.
-
-```html
-<magento-collect-cart></magento-collect-cart>
-```
-
 ### Response object
 
 Response objects are defined here: http://devdocs.magento.com/swagger/index_20.html
@@ -120,8 +128,6 @@ Response objects are defined here: http://devdocs.magento.com/swagger/index_20.h
 | ---------------------------|-----------------------------------------------------|
 | `magento-collect-products` | catalogProductRepositoryV1 - GET /V1/products       |
 | `magento-collect-product`  | catalogProductRepositoryV1 - GET /V1/products/{sku} |
-| `magento-collect-cart`     | quoteCartManagementV1      - GET /V1/carts/mine     |
-
 
 ### The Mage-Polymer-Object
 
@@ -155,10 +161,6 @@ This feature can be disabled (see (Installation)[#Installation] )
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
-## History
-
-TODO: Write history
 
 ## Credits
 
