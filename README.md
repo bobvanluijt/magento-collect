@@ -40,13 +40,14 @@ Polymer({
 
 The API follows the plural nouns RESTful approach. Example: `/products/{id}` for a single product and `/products` for a list of products.
 
-The `magento-collect` element follows this pattern by using plural and singular nouns.
+The `magento-collect` element follows this pattern by using plural and singular nouns. Based on Swagger document: http://devdocs.magento.com/swagger/index_20.html
 
-- `<magento-collect-products>` -> `/products`
-- `<magento-collect-product collector="{id}">` -> `/products/{id}`
-- `<magento-collect-categories>` -> `/categories`
-- `<magento-collect-category collector="{id}">` -> `/categories/{id}`
-- ...and so on...
+| Element | Resource |
+| -----------------------------|-------------------------------------------------------|
+| `magento-collect-products`   | catalogProductRepositoryV1  - GET /V1/products        |
+| `magento-collect-product`    | catalogProductRepositoryV1  - GET /V1/products/{id}   |
+| `magento-collect-categories` | catalogCategoryManagementV1 - GET /V1/categories      |
+| `magento-collect-category`   | catalogCategoryRepositoryV1 - GET /V1/categories/{id} |
 
 The `collector` attribute defines which `{id}` should be collected.
 
@@ -72,15 +73,6 @@ Overview:
 - [magento-collect-products](#magento-collect-products)
 - [magento-collect-item](#magento-collect-item)
 - _...soon more to follow..._
-
-| Element | Resource |
-| -----------------------------|-------------------------------------------------------|
-| `magento-collect-products`   | catalogProductRepositoryV1  - GET /V1/products        |
-| `magento-collect-product`    | catalogProductRepositoryV1  - GET /V1/products/{id}   |
-| `magento-collect-categories` | catalogCategoryManagementV1 - GET /V1/categories      |
-| `magento-collect-category`   | catalogCategoryRepositoryV1 - GET /V1/categories/{id} |
-
-Based on Swagger document: http://devdocs.magento.com/swagger/index_20.html
 
 #### &lt;magento-collect-product&gt;
 
