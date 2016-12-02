@@ -1,19 +1,41 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<!--                       .                    . .        .  
+                          _|_                   | |       _|_ 
+.--.--. .-.  .-.. .-. .--. |  .-.  ____  .-..-. | | .-. .-.|  
+|  |  |(   )(   |(.-' |  | | (   )      (  (   )| |(.-'(   |  
+'  '  `-`-'`-`-`| `--''  `-`-'`-'        `-'`-' `-`-`--'`-'`-'
+             ._.'   https://github.com/bobvanluijt/magento-collect -->
 
-<dom-module id="magento-collect">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="magento-item">
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
+    [[value]]
   </template>
-
   <script>
-    (function() {
-      Polymer()
-    })();
+      Polymer({
+        is: 'magento-item',
+        properties: {
+          value: {
+            notify: true,
+            type: String
+          },
+          key: {
+            type: String
+          },
+        },
+        ready: function(){
+          var thisElement = this;
+          addEventListener('set-data', function(e) {
+            if(thisElement.key in e.detail){
+              thisElement.value = e.detail[thisElement.key];
+            }
+          });
+        }
+      })
   </script>
-
 </dom-module>
