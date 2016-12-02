@@ -42,11 +42,11 @@ The API follows the plural nouns RESTful approach. Example: `/products/{id}` for
 
 The `magento-collect` element follows this pattern by using plural and singular nouns.
 
-`<magento-collect-products>` -> `/products`
-`<magento-collect-product collector="{id}">` -> `/products/{id}`
-`<magento-collect-categories>` -> `/categories`
-`<magento-collect-category collector="{id}">` -> `/categories/{id}`
-...and so on...
+- `<magento-collect-products>` -> `/products`
+- `<magento-collect-product collector="{id}">` -> `/products/{id}`
+- `<magento-collect-categories>` -> `/categories`
+- `<magento-collect-category collector="{id}">` -> `/categories/{id}`
+- ...and so on...
 
 The `collector` attribute defines which `{id}` should be collected.
 
@@ -72,6 +72,15 @@ Overview:
 - [magento-collect-products](#magento-collect-products)
 - [magento-collect-item](#magento-collect-item)
 - _...soon more to follow..._
+
+| Element | Resource |
+| -----------------------------|-------------------------------------------------------|
+| `magento-collect-products`   | catalogProductRepositoryV1  - GET /V1/products        |
+| `magento-collect-product`    | catalogProductRepositoryV1  - GET /V1/products/{id}   |
+| `magento-collect-categories` | catalogCategoryManagementV1 - GET /V1/categories      |
+| `magento-collect-category`   | catalogCategoryRepositoryV1 - GET /V1/categories/{id} |
+
+Based on Swagger document: http://devdocs.magento.com/swagger/index_20.html
 
 #### &lt;magento-collect-product&gt;
 
@@ -119,15 +128,6 @@ The complete product becomes available with double curly braces. The filtering w
 ```
 
 The filters and criteria are based on the [Magento 2 WebAPI Search Criteria](http://devdocs.magento.com/guides/v2.1/howdoi/webapi/search-criteria.html).
-
-### Response object
-
-Response objects are defined here: http://devdocs.magento.com/swagger/index_20.html
-
-| Element | Resource |
-| ---------------------------|-----------------------------------------------------|
-| `magento-collect-products` | catalogProductRepositoryV1 - GET /V1/products       |
-| `magento-collect-product`  | catalogProductRepositoryV1 - GET /V1/products/{sku} |
 
 ### The Mage-Polymer-Object
 
