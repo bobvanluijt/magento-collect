@@ -5,11 +5,16 @@
 '  '  `-`-'`-`-`| `--''  `-`-'`-'        `-'`-' `-`-`--'`-'`-'
              ._.'   https://github.com/bobvanluijt/magento-collect -->
 
+<!—- SWAGGER ID:  catalogProductCustomOptionRepositoryV1GetGet -—>
+<!—- DESCRIPTION: Get custom option for a specific product -—>
+
+<!—- THIS DOCUMENT IS AUTO GENERATED, UPDATE THE GENERATOR FILE TO CHANGE IT —->
+
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../magento-collect.html">
 
-<dom-module id="magento-collect-product">
+<dom-module id="magento-collect-catalog-product-custom-option">
   <template>
     <style>
       :host {
@@ -17,16 +22,13 @@
       }
     </style>
     <content></content>
-    <iron-ajax auto url="/rest/V1/products/[[collector]]" handle-as="json" last-response="{{response}}" on-response="onResponse" id="xhr"></iron-ajax>
+    <iron-ajax auto url="/rest/default/V1/products/[[sku]]/options/{optionId}" handle-as="json" last-response="{{response}}" on-response="onResponse" id="xhr"></iron-ajax>
  </template>
   <script>
       Polymer({
-        is: 'magento-collect-product',
+        is: "magento-collect-catalog-product-custom-option",
         properties: {
-          collector: {
-            type: String,
-            notify: true
-          },
+          sku: { type: String, notify: true },optionId: { type: String, notify: true },
           response: {
             type: String
           }

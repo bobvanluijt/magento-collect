@@ -1,0 +1,42 @@
+<!--                       .                    . .        .  
+                          _|_                   | |       _|_ 
+.--.--. .-.  .-.. .-. .--. |  .-.  ____  .-..-. | | .-. .-.|  
+|  |  |(   )(   |(.-' |  | | (   )      (  (   )| |(.-'(   |  
+'  '  `-`-'`-`-`| `--''  `-`-'`-'        `-'`-' `-`-`--'`-'`-'
+             ._.'   https://github.com/bobvanluijt/magento-collect -->
+
+<!—- SWAGGER ID:  salesOrderRepositoryV1GetGet -—>
+<!—- DESCRIPTION: Loads a specified order. -—>
+
+<!—- THIS DOCUMENT IS AUTO GENERATED, UPDATE THE GENERATOR FILE TO CHANGE IT —->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../magento-collect.html">
+
+<dom-module id="magento-collect-sales-order">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <content></content>
+    <iron-ajax auto url="/rest/default/V1/orders/[[id]]" handle-as="json" last-response="{{response}}" on-response="onResponse" id="xhr"></iron-ajax>
+ </template>
+  <script>
+      Polymer({
+        is: "magento-collect-sales-order",
+        properties: {
+          id: { type: String, notify: true },
+          response: {
+            type: String
+          }
+        },
+        onResponse: function(response){
+          var result = response.detail.response;
+          this.fire('set-data', result)
+        }
+      })
+  </script>
+</dom-module>
