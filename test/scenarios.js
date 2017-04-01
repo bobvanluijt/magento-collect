@@ -1,15 +1,12 @@
 'use strict';
-/**
- *  _____                 _   _
- * |  __ \               | | (_)
- * | |  | | ___  _ __ ___| |  _  ___
- * | |  | |/ _ \| '__/ _ \ | | |/ _ \
- * | |__| | (_) | | |  __/ |_| | (_) |
- * |_____/ \___/|_|  \___|_(_)_|\___/
- *
- * Description: Installs a complete Magento 2 installation in travis and validates the APIs
- * Author: Bob van Luijt
- */
+/*                        .                    . .        .  
+                          _|_                   | |       _|_ 
+.--.--. .-.  .-.. .-. .--. |  .-.  ____  .-..-. | | .-. .-.|  
+|  |  |(   )(   |(.-' |  | | (   )      (  (   )| |(.-'(   |  
+'  '  `-`-'`-`-`| `--''  `-`-'`-'        `-'`-' `-`-`--'`-'`-'
+             ._.'   https://github.com/bobvanluijt/magento-collect
+*/
+
 var assert  = require('assert');
 var request = require('supertest');
 var should  = require('should');

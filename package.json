@@ -2,7 +2,7 @@
   "name": "magento-collect",
   "description": "A Magento WebAPI integration for Polymer",
   "scripts": {
-    "test": "test/test.js"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -15,11 +15,8 @@
   "bugs": {
     "url": "https://github.com/dorel/Magento-2-BDD-REST-API/issues"
   },
-  "scripts": {
-      "lint": "eslint ."
-  },
   "eslintConfig": {
-      "extends": "google"
+    "extends": "google"
   },
   "author": "Bob van Luijt <bob@kubrickolo.gy>",
   "license": "ISC",
@@ -31,5 +28,8 @@
     "eslint-config-google": "^0.6.0",
     "should": "*",
     "supertest": "*"
+  },
+  "dependencies": {
+    "request": "^2.81.0"
   }
 }
